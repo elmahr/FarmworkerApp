@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "633929784053",
+    "firebase_url": "https://farmworkerapp-127f2.firebaseio.com",
+    "project_id": "farmworkerapp-127f2",
+    "storage_bucket": "farmworkerapp-127f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633929784053:android:7dd2edbb33b9d50c",
+        "android_client_info": {
+          "package_name": "com.example.farmworkerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "633929784053-nr1qj4esno5u5amcs6sd8a0kiupmc2lc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiCT5MYx9UYZsslvB6ufiLcDfnn36bsBI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
