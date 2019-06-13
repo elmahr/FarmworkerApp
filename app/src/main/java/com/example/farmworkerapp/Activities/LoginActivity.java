@@ -24,8 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private ProgressBar loginProgress;
     private FirebaseAuth mAuth;
-    private Intent HomeActivity;
-    private ImageView lgnPhoto;
+    private Intent HomePickerActivity;
+    private Intent HomeCheckerActivity;
+    private Button createAcc;
 
 
     @Override
@@ -39,9 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.loginBtn);
         loginProgress = findViewById(R.id.loginProgress);
         mAuth = FirebaseAuth.getInstance();
-        HomeActivity = new Intent(this, com.example.farmworkerapp.Activities.HomeActivity.class);
-        lgnPhoto = findViewById(R.id.loginPhoto);
-        lgnPhoto.setOnClickListener(new View.OnClickListener() {
+        HomePickerActivity = new Intent(this, com.example.farmworkerapp.Activities.HomePickerActivity.class);
+        createAcc = findViewById(R.id.createAccount);
+        createAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -81,16 +82,24 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void signIn(String mail, String password) {
-
+    private void signIn(final String mail, String password) {
+        System.out.println("HEREHEREHEREHERE");
+        System.out.println(mail);
         mAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
+                if(task.isSuccessful() && mail == "sophiap@yahoo.com"){
+                    System.out.println("IN CHECKER");
                     loginProgress.setVisibility(View.INVISIBLE);
                     btnLogin.setVisibility(View.VISIBLE);
-                    updateUI();
+                    updateUIChecker();
+                }
+                else if(task.isSuccessful()){
+                    System.out.println("IN PICKER");
+                    loginProgress.setVisibility(View.INVISIBLE);
+                    btnLogin.setVisibility(View.VISIBLE);
+                    updateUIPicker();
                 }
                 else{
                     showMessage(task.getException().getMessage());
@@ -103,9 +112,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void updateUI() {
+    private void updateUIPicker() {
 
-        startActivity(HomeActivity);
+        startActivity(HomePickerActivity);
+        finish();
+
+    }
+
+    private void updateUIChecker() {
+
+        startActivity(HomePickerActivity);
         finish();
 
     }
@@ -123,15 +139,24 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
+        //String name = user.getDisplayName();
+        System.out.println("the current user is: " + user);
+        //System.out.println("the current name is: " +name);
+
         if(user != null){
-            //user is already connected so we need to redirect to home page
-            updateUI();
+            //user is already connected so we redirect to their respective home page
+            updateUIPicker();
         }
-
-
-
 
     }
 }
+
+/*            if(name == "Sophia Petrillo"){
+                updateUIChecker();
+            }
+            else {
+                updateUIPicker();
+            }*/
